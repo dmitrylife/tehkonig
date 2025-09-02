@@ -15,3 +15,6 @@ staticfiles/
 # IDE
 .idea/
 .vscode/
+
+deploy.sh
+

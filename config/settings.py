@@ -23,30 +23,39 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ggs(cjsmbcef8e&^!edm*jf887ky2vneilv^$)vvt4qo0wb6%e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True  # В продакшене: False
+DEBUG = True  # Продакшн режим
 
-# Универсальный SITE_ID — даже если вы не используете Sites-фреймворк, Django его требует
-SITE_ID = 1
-
-# Настройки для продакшена
 if not DEBUG:
+    # Разрешённые хосты в продакшене
     ALLOWED_HOSTS = ['tehkonig.ru', 'www.tehkonig.ru', '195.135.212.233']
 
-    # Редирект на HTTPS
-    SECURE_SSL_REDIRECT = True
+    # HTTPS через прокси (Apache/Nginx)
+    SECURE_SSL_REDIRECT = False  # редирект делает прокси
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
     # Безопасные cookies
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
 
-    # Поведение URL
+    # Авто-дополнение слэшей и www
     APPEND_SLASH = True
     PREPEND_WWW = True
 
+    # Заголовки безопасности
+    SECURE_HSTS_SECONDS = 31536000           # 1 год
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True    # HSTS для поддоменов
+    SECURE_HSTS_PRELOAD = True               # для списка preload браузеров
+    SECURE_CONTENT_TYPE_NOSNIFF = True       # защита от MIME-type sniffing
+    SECURE_BROWSER_XSS_FILTER = True         # включение встроенного XSS-фильтра
+    X_FRAME_OPTIONS = 'DENY'                 # защита от clickjacking
+
 else:
-    # Разрешаем доступ с любого хоста в режиме разработки
-    ALLOWED_HOSTS = ['*']
+    # Режим разработки
+    ALLOWED_HOSTS = ['*']  # разрешаем любые хосты
+
+
+# Универсальный SITE_ID — даже если вы не используете Sites-фреймворк, Django его требует
+SITE_ID = 1
 
 
 # Application definition

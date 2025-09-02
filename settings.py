@@ -1,0 +1,1 @@
+/home/dmitry/www/tehkonig.ru/config/settings.py

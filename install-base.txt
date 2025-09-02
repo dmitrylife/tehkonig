@@ -1,0 +1,24 @@
+# Обновляем пакеты
+sudo apt update && sudo apt upgrade -y
+
+# Ставим PostgreSQL (последнюю версию, например 16)
+sudo apt install -y postgresql postgresql-contrib
+
+
+Переключаемся на пользователя postgres:
+sudo -i -u postgres psql
+
+Запускаем psql:
+psql
+
+
+-- Создаём пользователя
+CREATE USER myuser WITH PASSWORD 'mypassword';
+
+-- Создаём базу
+CREATE DATABASE mydb OWNER myuser;
+
+-- Даём права
+GRANT ALL PRIVILEGES ON DATABASE mydb TO myuser;
+\q
+
